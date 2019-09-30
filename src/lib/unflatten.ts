@@ -1,11 +1,14 @@
-import {isArray, isObject} from './util';
+import { isArray, isObject } from './util';
 
 const renameKey = ({ [oldProp]: old, ...others }, oldProp, newProp) => ({
   [newProp]: old,
   ...others
 });
 
-export function unflatten(target, opts = { delimiter: { object: '.', array: '$' } }) {
+export function unflatten(
+  target,
+  opts = { delimiter: { object: '.', array: '$' } }
+) {
   const { delimiter } = opts;
   const result = {};
 
@@ -19,11 +22,10 @@ export function unflatten(target, opts = { delimiter: { object: '.', array: '$' 
 
   const getKey = key => {
     const parsedKey = Number(key);
-    return (isNaN(parsedKey) || key.indexOf('.') !== -1) ? key : parsedKey;
+    return isNaN(parsedKey) || key.indexOf('.') !== -1 ? key : parsedKey;
   };
 
-  Object
-    .keys(target)
+  Object.keys(target)
     .sort((a, b) => a.length - b.length)
     .forEach(key => {
       const split = key.split(delimiter.object);
@@ -33,7 +35,7 @@ export function unflatten(target, opts = { delimiter: { object: '.', array: '$' 
 
       while (key2 !== undefined) {
         if (!(isObject(recipient[key1]) || isArray(recipient[key1]))) {
-          recipient[key1] = (typeof key2 === 'number' ? [] : {});
+          recipient[key1] = typeof key2 === 'number' ? [] : {};
         }
 
         recipient = recipient[key1];

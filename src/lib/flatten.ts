@@ -1,6 +1,15 @@
-import { isArray, isEmpty, isEmptyArray, isEmptyObject, isObject } from './util';
+import {
+  isArray,
+  isEmpty,
+  isEmptyArray,
+  isEmptyObject,
+  isObject
+} from './util';
 
-export function flatten(target, opts = { delimiter: { object: '.', array: '$' } }) {
+export function flatten(
+  target,
+  opts = { delimiter: { object: '.', array: '$' } }
+) {
   const output = {};
 
   function step(object, prev?, delimiter = opts.delimiter.object) {
