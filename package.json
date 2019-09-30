@@ -1,5 +1,5 @@
 {
-  "name": "convert-i18n-locfile",
+  "name": "i18n-to-locfile",
   "version": "1.0.0",
   "description": "asdf",
   "main": "build/main/index.js",
