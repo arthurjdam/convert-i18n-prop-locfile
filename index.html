@@ -64,11 +64,66 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#convert-i18n-locfile" id="convert-i18n-locfile" style="color: inherit; text-decoration: none;">
-					<h1>convert-i18n-locfile</h1>
+				<a href="#i18n-to-locfile" id="i18n-to-locfile" style="color: inherit; text-decoration: none;">
+					<h1>i18n-to-locfile</h1>
 				</a>
 				<p>Simple converter for &quot;properties&quot;-file type localization files to and from a JSON object. Includes support for arrays
 				using &quot;.0&quot; or &quot;$0&quot; notation styles. </p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>Install</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> i18n-<span class="hljs-keyword">to</span>-locfile <span class="hljs-comment">--save </span></code></pre><p>Or</p>
+				<pre><code>yarn <span class="hljs-keyword">add</span> <span class="hljs-keyword">i18</span>n-<span class="hljs-keyword">to</span>-locfile </code></pre><p>And import the exposed methods, or the whole bundle</p>
+				<pre><code><span class="hljs-keyword">const</span> { flatten, unflatten } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'i18n-to-locfile'</span>);</code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<p>The package exposes 2 methods, one for transforming JSON into a dotted property file, and the other way around.</p>
+				<a href="#flatten" id="flatten" style="color: inherit; text-decoration: none;">
+					<h3>Flatten</h3>
+				</a>
+				<p><strong><em>flatten(deepObject):flatObject</em></strong></p>
+				<pre><code><span class="hljs-keyword">const</span> { flatten, unflatten } = require(<span class="hljs-string">'i18n-to-locfile'</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">object</span> = {
+    hello: <span class="hljs-string">'world'</span>,
+    address: {
+        street: <span class="hljs-string">'somestreet'</span>,
+        city: <span class="hljs-string">'new york'</span>,
+    },
+    phone: [
+        <span class="hljs-string">'1-555-1234'</span>,
+        <span class="hljs-string">'1-555-2345'</span>,
+    ],
+};
+
+<span class="hljs-keyword">const</span> flatObject = flatten(<span class="hljs-keyword">object</span>);
+console.log(flatObject);</code></pre><p>Will return:</p>
+				<pre><code>{
+    hello: <span class="hljs-string">'world'</span>,
+    <span class="hljs-selector-tag">address</span><span class="hljs-selector-class">.street</span>: <span class="hljs-string">'somestreet'</span>,
+    <span class="hljs-selector-tag">address</span><span class="hljs-selector-class">.city</span>: <span class="hljs-string">'newyork'</span>,
+    phone$<span class="hljs-number">0</span>: <span class="hljs-string">'1-555-1234'</span>,
+    phone$<span class="hljs-number">1</span>: <span class="hljs-string">'1-555-2345'</span>,
+}</code></pre>
+				<a href="#unflatten" id="unflatten" style="color: inherit; text-decoration: none;">
+					<h3>Unflatten</h3>
+				</a>
+				<p><strong><em>unflatten(flatObject):deepObject</em></strong></p>
+				<p>To go the other way:</p>
+				<pre><code>console<span class="hljs-meta">.log(</span>unflatt<span class="hljs-meta">en(</span>flatObject));</code></pre><p>Will return the original object:</p>
+				<pre><code>{
+    <span class="hljs-attribute">hello</span>: <span class="hljs-string">'world'</span>,
+    <span class="hljs-attribute">address</span>: {
+        <span class="hljs-attribute">street</span>: <span class="hljs-string">'somestreet'</span>,
+        <span class="hljs-attribute">city</span>: <span class="hljs-string">'new york'</span>,
+    },
+    <span class="hljs-attribute">phone</span>: [
+        <span class="hljs-string">'1-555-1234'</span>,
+        <span class="hljs-string">'1-555-2345'</span>,
+    ],
+}</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
