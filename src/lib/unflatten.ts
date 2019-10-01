@@ -18,10 +18,6 @@ export function unflatten(target: JSONDictionary) {
     target = renameKey(target, key, key.replace(/\$/g, '.'));
   });
 
-  if (!isObject(target)) {
-    return target;
-  }
-
   const getKey = (key: string) => {
     const parsedKey = Number(key);
     return isNaN(parsedKey) || key.indexOf('.') !== -1 ? key : parsedKey;
