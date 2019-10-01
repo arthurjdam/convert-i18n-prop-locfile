@@ -1,16 +1,18 @@
+import { JSONDictionary, JSONPrimitive } from '../type/JSON';
+import { delimiter } from './config';
 import { isArray, isObject } from './util';
 
-const renameKey = ({ [oldProp]: old, ...others }, oldProp, newProp) => ({
+const renameKey = (
+  { [oldProp]: old, ...others },
+  oldProp: string,
+  newProp: string
+) => ({
   [newProp]: old,
   ...others
 });
 
-export function unflatten(
-  target,
-  opts = { delimiter: { object: '.', array: '$' } }
-) {
-  const { delimiter } = opts;
-  const result = {};
+export function unflatten(target: JSONDictionary) {
+  const result: JSONPrimitive = {};
 
   Object.keys(target).forEach(key => {
     target = renameKey(target, key, key.replace(/\$/g, '.'));
@@ -20,7 +22,7 @@ export function unflatten(
     return target;
   }
 
-  const getKey = key => {
+  const getKey = (key: string) => {
     const parsedKey = Number(key);
     return isNaN(parsedKey) || key.indexOf('.') !== -1 ? key : parsedKey;
   };
@@ -29,9 +31,9 @@ export function unflatten(
     .sort((a, b) => a.length - b.length)
     .forEach(key => {
       const split = key.split(delimiter.object);
-      let key1 = getKey(split.shift());
+      let key1 = getKey(split.shift() as string);
       let key2 = getKey(split[0]);
-      let recipient = result;
+      let recipient: any = result;
 
       while (key2 !== undefined) {
         if (!(isObject(recipient[key1]) || isArray(recipient[key1]))) {
@@ -41,11 +43,10 @@ export function unflatten(
         recipient = recipient[key1];
 
         if (split.length > 0) {
-          key1 = getKey(split.shift());
+          key1 = getKey(split.shift() as string);
           key2 = getKey(split[0]);
         }
       }
-      // recipient[key1] = unflatten(target[key], opts);
       recipient[key1] = target[key];
     });
 
