@@ -23,12 +23,13 @@ const { flatten, unflatten } = require('i18n-to-locfile');
 
 ## API
 
-The package exposes 2 methods, one for transforming JSON into a dotted property file, and the other way around.
+The package exposes 2 methods, one for transforming JSON into a dotted property file, and the other way around. More 
+detailed documentation is available [Github Pages](https://arthurjdam.github.io/i18n-to-locfile/).
 
 ### Flatten
 
 ***flatten(deepObject):flatObject***
-```
+```javascript
 const { flatten, unflatten } = require('i18n-to-locfile');
 
 const object = {
@@ -62,7 +63,7 @@ Will return:
 ***unflatten(flatObject):deepObject***
 
 To go the other way:
-```
+```javascript
 console.log(unflatten(flatObject));
 ```
 
